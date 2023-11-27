@@ -1,0 +1,3 @@
+James Foley -  My part I contributed in was player movements, such as a basic lane movement and changes, the crouching, and the crouch back down after jumping. I also added random enemy spawn heights so the player can dodge them in different ways.
+
+Eryk Glowacki - Created all of the scenes, added the main menu + functionality, created the spawn manager + prefabs, created basic functional UI, created the powerups + coins, tweaked the lane system added by james to fit into the set ground, added game over functionality, made spawn rate + speed of the obstacles increase globally 
