@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 10.0f;
     public float floorWidth = 20.0f;
     public float laneWidth;
-
+    private Animator playerAnim;
     private float currentLane = 1;
     private Rigidbody playerRb;
     public float jumpForce;
@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     private bool isInvincible = false;
     private float powerupDuration = 5.0f;
     private float powerupTimer;
+    
+
 
     private int doubleJumpCount = 1;  // Set to 1 for initial double jump ability
     private int currentDoubleJumps = 0;  // Keep track of the number of double jumps used
@@ -39,10 +41,12 @@ public class PlayerController : MonoBehaviour
     {
         playerRb = GetComponent<Rigidbody>();
         Physics.gravity *= gravityModifier;
+        playerAnim = GetComponent<Animator>();
 
         laneWidth = floorWidth / numberOfLanes;
         originalHeight = transform.localScale.y;
     }
+    
 
     void Update()
     {
@@ -72,17 +76,26 @@ public class PlayerController : MonoBehaviour
             {
                 playerRb.velocity = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
                 playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                playerAnim.SetBool("Jump_b", true);
 
                 if (!isOnGround)
                 {
                     doubleJumpAvailable = false;
                     doubleJumpTimer = 0.0f;
                     texts.doubleJumpPowerupText.gameObject.SetActive(false);
+                    playerAnim.SetBool("Jump_b", false);
                 }
 
                 isOnGround = false;
+                
             }
+            
         }
+
+        if (Input.GetKeyUp(KeyCode.Space)) {
+            playerAnim.SetBool("Jump_b", false);
+        }
+        
 
         // Check for crouch input
         if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -168,6 +181,8 @@ public class PlayerController : MonoBehaviour
             texts.gameoverText.gameObject.SetActive(true);
             restartButton.gameObject.SetActive(true);
             returnMenuButton.gameObject.SetActive(true);
+                playerAnim.SetBool("Death_b", true);
+                playerAnim.SetInteger("DeathType_int", 1);
         }
     }
 
