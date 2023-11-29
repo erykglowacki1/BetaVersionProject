@@ -7,19 +7,24 @@ using System.Collections;
 public class Texts : MonoBehaviour
 {
     public int score;
-    
+    public int highScore;
+
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI gameoverText;
     public TextMeshProUGUI invincibilityText;
     public TextMeshProUGUI doubleJumpPowerupText;
+    public TextMeshProUGUI highScoreText;
     private PlayerController PlayerControllerScript;
     
     public TextMeshProUGUI menuSelect;
     
     void Start()
     {
+
+        highScore = PlayerPrefs.GetInt("HighScore", 0);
         score = 0;
         scoreText.text = "Score: " + score;
+        highScoreText.text = "High Score: " + highScore;
         PlayerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         StartCoroutine(IncreaseScoreCoroutine());
     }
@@ -31,6 +36,7 @@ public class Texts : MonoBehaviour
             yield return new WaitForSeconds(1f);
             if (!PlayerControllerScript.gameOver) {
                 UpdateScore(5);
+
             }
         }
     }
@@ -46,6 +52,15 @@ public class Texts : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Collision with Enemy detected");
+            if (score > highScore)
+            {
+                highScore = score;
+                highScoreText.text = "High Score: " + highScore;
+                Debug.Log("New High Score: " + highScore);
+
+            }
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save();
             GameOver();
         }
     }
@@ -58,7 +73,7 @@ public class Texts : MonoBehaviour
 
     public void InvincibilityText(float remainingTime)
     {
-        if (invincibilityText != null) // Check for null reference
+        if (invincibilityText != null) 
         {
             invincibilityText.gameObject.SetActive(true);
             invincibilityText.text = "Invincibility: " + Mathf.Ceil(remainingTime).ToString();
@@ -67,7 +82,7 @@ public class Texts : MonoBehaviour
 
     public void DoubleJumpPowerupText(float remainingTime)
     {
-        if (doubleJumpPowerupText != null) // Check for null reference
+        if (doubleJumpPowerupText != null)
         {
             doubleJumpPowerupText.gameObject.SetActive(true);
            
