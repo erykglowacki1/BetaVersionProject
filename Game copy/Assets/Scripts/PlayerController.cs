@@ -6,11 +6,13 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    public MoveForward moveForwardScript;
     public int numberOfLanes = 3;
     public float speed = 10.0f;
     public float floorWidth = 20.0f;
     public float laneWidth;
     private Animator playerAnim;
+    public ParticleSystem explosionParticle;
     private float currentLane = 1;
     private Rigidbody playerRb;
     public float jumpForce;
@@ -183,6 +185,10 @@ public class PlayerController : MonoBehaviour
             returnMenuButton.gameObject.SetActive(true);
                 playerAnim.SetBool("Death_b", true);
                 playerAnim.SetInteger("DeathType_int", 1);
+                explosionParticle.Play();
+                moveForwardScript.fire.Stop();
+                
+                
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveForward : MonoBehaviour
 {
     public float speed;
-    
+    public ParticleSystem fire;
     private PlayerController playerControllerScript;
     
 
@@ -15,6 +15,7 @@ public class MoveForward : MonoBehaviour
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         //speed = GameObject.Find("ObstacleManager").GetComponent<ObstacleSpeedManager>().speed;
         SetObstacleSpeed(speed);
+        fire.Play();
     }
 
    

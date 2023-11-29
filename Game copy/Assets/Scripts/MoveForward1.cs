@@ -7,6 +7,7 @@ public class MoveForward1 : MonoBehaviour
     private float speed = 60.0f;
 
     private PlayerController playerControllerScript;
+    
     private
 
     // Start is called before the first frame update
@@ -14,6 +15,7 @@ public class MoveForward1 : MonoBehaviour
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         //speed = GameObject.Find("ObstacleManager").GetComponent<ObstacleSpeedManager>().speed;
+        
     }
 
 
