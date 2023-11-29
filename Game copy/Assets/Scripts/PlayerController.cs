@@ -151,6 +151,7 @@ public class PlayerController : MonoBehaviour
                     doubleJumpAvailable = false;
                     doubleJumpTimer = 0.0f;
                     texts.doubleJumpPowerupText.gameObject.SetActive(false);
+                    runEffect.Stop();
                 }
 
                 isOnGround = false;
@@ -170,6 +171,7 @@ public class PlayerController : MonoBehaviour
         playerRb.velocity = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
         playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         playerAnim.SetBool("Jump_b", true);
+        
     }
 
     void HandleCrouching()
