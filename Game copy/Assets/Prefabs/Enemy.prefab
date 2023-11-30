@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 60
-  fire: {fileID: 19800000, guid: ab1112643ee572748b01dede71158272, type: 3}
+  fire: {fileID: 0}
 --- !u!114 &7056234388195993418
 MonoBehaviour:
   m_ObjectHideFlags: 0

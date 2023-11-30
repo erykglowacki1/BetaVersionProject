@@ -6,7 +6,7 @@ using System.Collections;
 
 public class Texts : MonoBehaviour
 {
-    public int score;
+    public int score = 0;
     public int highScore;
 
     public TextMeshProUGUI scoreText;
@@ -21,12 +21,14 @@ public class Texts : MonoBehaviour
     void Start()
     {
 
-        highScore = PlayerPrefs.GetInt("HighScore", 0);
-        score = 0;
+       
+        
         scoreText.text = "Score: " + score;
-        highScoreText.text = "High Score: " + highScore;
+        highScoreText.text = "High Score : " + PlayerPrefs.GetInt("highscore");
+        
         PlayerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         StartCoroutine(IncreaseScoreCoroutine());
+        
     }
 
     IEnumerator IncreaseScoreCoroutine()
@@ -40,6 +42,10 @@ public class Texts : MonoBehaviour
             }
         }
     }
+   
+
+    
+
 
     private void UpdateScore(int scoreToAdd)
     {
@@ -52,16 +58,8 @@ public class Texts : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Collision with Enemy detected");
-            if (score > highScore)
-            {
-                highScore = score;
-                highScoreText.text = "High Score: " + highScore;
-                Debug.Log("New High Score: " + highScore);
-
-            }
-            PlayerPrefs.SetInt("HighScore", highScore);
-            PlayerPrefs.Save();
             GameOver();
+
         }
     }
 
@@ -69,6 +67,7 @@ public class Texts : MonoBehaviour
     {
         gameoverText.gameObject.SetActive(true);
         menuSelect.gameObject.SetActive(true);
+       
     }
 
     public void InvincibilityText(float remainingTime)

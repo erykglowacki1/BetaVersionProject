@@ -209,7 +209,9 @@ public class PlayerController : MonoBehaviour
                 playerAnim.SetBool("Death_b", true);
                 playerAnim.SetInteger("DeathType_int", 1);
                 explosionParticle.Play();
-                moveForwardScript.fire.Stop();
+                Debug.Log("Game Over - High Score: " + PlayerPrefs.GetInt("highscore"));
+                PlayerPrefs.SetInt("highscore", texts.score);
+
 
                 // Play dying audio
                 dyingAudio.Play();
