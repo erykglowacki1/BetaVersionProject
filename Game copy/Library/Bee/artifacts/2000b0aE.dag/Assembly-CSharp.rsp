@@ -355,6 +355,7 @@
 -analyzer:"/Applications/Unity/Hub/Editor/2022.3.9f1/Unity.app/Contents/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 "Assets/Scripts/DestroyOutOfBounds.cs"
 "Assets/Scripts/FollowCamera.cs"
+"Assets/Scripts/LinkToGithub.cs"
 "Assets/Scripts/LoadGame.cs"
 "Assets/Scripts/MoveForward.cs"
 "Assets/Scripts/MoveForward1.cs"
