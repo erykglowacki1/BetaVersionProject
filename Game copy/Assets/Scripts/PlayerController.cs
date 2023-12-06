@@ -15,7 +15,10 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem explosionParticle;
     public ParticleSystem runningParticle;
     public ParticleSystem crouchParticle;
-    public ParticleSystem uncrouchParticle;
+   
+
+    private bool canPlayRunningParticle = true;
+
     private float currentLane = 1;
     private Rigidbody playerRb;
     public float jumpForce;
@@ -84,15 +87,18 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
 
+
+
+
         // Play running particles only when on the ground
-        if (isOnGround && !isCrouching)
+
+
+
+        if (!isOnGround && !isCrouching)
         {
             runningParticle.Play();
         }
-        else
-        {
-            runningParticle.Stop();
-        }
+        
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -108,6 +114,7 @@ public class PlayerController : MonoBehaviour
                     doubleJumpTimer = 0.0f;
                     texts.doubleJumpPowerupText.gameObject.SetActive(false);
                     playerAnim.SetBool("Jump_b", false);
+                    
                 }
 
                 isOnGround = false;
@@ -211,6 +218,10 @@ public class PlayerController : MonoBehaviour
                 explosionParticle.Play();
                 Debug.Log("Game Over - High Score: " + PlayerPrefs.GetInt("highscore"));
                 PlayerPrefs.SetInt("highscore", texts.score);
+                runningParticle.Stop();
+
+
+
 
 
                 // Play dying audio
@@ -301,7 +312,6 @@ public class PlayerController : MonoBehaviour
         // Play uncrouching animation
         playerAnim.SetBool("Crouch_b", false);
 
-        // Play uncrouch particle effect
-        uncrouchParticle.Play();
+       
     }
 }

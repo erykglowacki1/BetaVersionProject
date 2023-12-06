@@ -27,6 +27,7 @@ public class MoveForward : MonoBehaviour
         if (playerControllerScript.gameOver == false)
         {
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
+            fire.Stop();
 
         }
     
