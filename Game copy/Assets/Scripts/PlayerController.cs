@@ -67,126 +67,129 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0 && !isCrouching)
+        if (!gameOver)
         {
-            currentLane--;
-        }
+            float horizontalInput = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < numberOfLanes - 1 && !isCrouching)
-        {
-            currentLane++;
-        }
-
-        float targetX = currentLane * laneWidth - floorWidth / 2.0f + laneWidth / 2.0f;
-        transform.position = Vector3.Lerp(transform.position, new Vector3(targetX, transform.position.y, transform.position.z), Time.deltaTime * speed);
-
-        float clampedX = Mathf.Clamp(transform.position.x, -floorWidth / 2.0f + laneWidth / 2.0f, floorWidth / 2.0f - laneWidth / 2.0f);
-        transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
-
-        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
-
-
-
-
-        // Play running particles only when on the ground
-
-
-
-        if (!isOnGround && !isCrouching)
-        {
-            runningParticle.Play();
-        }
-        
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isOnGround || (doubleJumpAvailable && doubleJumpTimer > 0))
+            if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0 && !isCrouching)
             {
-                playerRb.velocity = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
-                playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                playerAnim.SetBool("Jump_b", true);
+                currentLane--;
+            }
 
-                if (!isOnGround)
+            if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < numberOfLanes - 1 && !isCrouching)
+            {
+                currentLane++;
+            }
+
+            float targetX = currentLane * laneWidth - floorWidth / 2.0f + laneWidth / 2.0f;
+            transform.position = Vector3.Lerp(transform.position, new Vector3(targetX, transform.position.y, transform.position.z), Time.deltaTime * speed);
+
+            float clampedX = Mathf.Clamp(transform.position.x, -floorWidth / 2.0f + laneWidth / 2.0f, floorWidth / 2.0f - laneWidth / 2.0f);
+            transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
+
+            transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+
+
+
+
+            // Play running particles only when on the ground
+
+
+
+            if (!isOnGround && !isCrouching)
+            {
+                runningParticle.Play();
+            }
+
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (isOnGround || (doubleJumpAvailable && doubleJumpTimer > 0))
+                {
+                    playerRb.velocity = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
+                    playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                    playerAnim.SetBool("Jump_b", true);
+
+                    if (!isOnGround)
+                    {
+                        doubleJumpAvailable = false;
+                        doubleJumpTimer = 0.0f;
+                        texts.doubleJumpPowerupText.gameObject.SetActive(false);
+                        playerAnim.SetBool("Jump_b", false);
+
+                    }
+
+                    isOnGround = false;
+
+                    // Play jump audio
+                    jumpAudio.Play();
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.Space))
+            {
+                playerAnim.SetBool("Jump_b", false);
+            }
+
+            // Check for crouch input
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                if (isOnGround)
+                {
+                    // Crouch if on the ground
+                    isCrouching = true;
+                    Crouch();
+                }
+                else if (!isOnGround && !isCrouching)
+                {
+                    // Descend more quickly when crouching while in the air
+                    playerRb.velocity = new Vector3(playerRb.velocity.x, -jumpForce, playerRb.velocity.z);
+                    isCrouching = true;
+                    Crouch();
+                }
+            }
+            else if (Input.GetKeyUp(KeyCode.DownArrow) && isCrouching)
+            {
+                // Uncrouch when crouch key is released
+                isCrouching = false;
+                Uncrouch();
+            }
+
+            if (isCrouching)
+            {
+                // Additional actions when continuously crouching
+                // Example: Decrease speed when continuously crouching
+                speed /= 2.0f;
+            }
+            else
+            {
+                // Restore speed when not crouching
+                speed = 10.0f;
+            }
+
+            if (isInvincible)
+            {
+                powerupTimer -= Time.deltaTime;
+                powerupTimer = Mathf.Max(0, powerupTimer);
+
+                texts.InvincibilityText(powerupTimer);
+                if (powerupTimer <= 0)
+                {
+                    isInvincible = false;
+                    texts.invincibilityText.gameObject.SetActive(false);
+                    gameOver = false;
+                }
+            }
+
+            if (!isOnGround && doubleJumpTimer > 0)
+            {
+                doubleJumpTimer -= Time.deltaTime;
+
+                if (doubleJumpTimer <= 0)
                 {
                     doubleJumpAvailable = false;
-                    doubleJumpTimer = 0.0f;
                     texts.doubleJumpPowerupText.gameObject.SetActive(false);
-                    playerAnim.SetBool("Jump_b", false);
-                    
                 }
-
-                isOnGround = false;
-
-                // Play jump audio
-                jumpAudio.Play();
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            playerAnim.SetBool("Jump_b", false);
-        }
-
-        // Check for crouch input
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            if (isOnGround)
-            {
-                // Crouch if on the ground
-                isCrouching = true;
-                Crouch();
-            }
-            else if (!isOnGround && !isCrouching)
-            {
-                // Descend more quickly when crouching while in the air
-                playerRb.velocity = new Vector3(playerRb.velocity.x, -jumpForce, playerRb.velocity.z);
-                isCrouching = true;
-                Crouch();
-            }
-        }
-        else if (Input.GetKeyUp(KeyCode.DownArrow) && isCrouching)
-        {
-            // Uncrouch when crouch key is released
-            isCrouching = false;
-            Uncrouch();
-        }
-
-        if (isCrouching)
-        {
-            // Additional actions when continuously crouching
-            // Example: Decrease speed when continuously crouching
-            speed /= 2.0f;
-        }
-        else
-        {
-            // Restore speed when not crouching
-            speed = 10.0f;
-        }
-
-        if (isInvincible)
-        {
-            powerupTimer -= Time.deltaTime;
-            powerupTimer = Mathf.Max(0, powerupTimer);
-
-            texts.InvincibilityText(powerupTimer);
-            if (powerupTimer <= 0)
-            {
-                isInvincible = false;
-                texts.invincibilityText.gameObject.SetActive(false);
-                gameOver = false;
-            }
-        }
-
-        if (!isOnGround && doubleJumpTimer > 0)
-        {
-            doubleJumpTimer -= Time.deltaTime;
-
-            if (doubleJumpTimer <= 0)
-            {
-                doubleJumpAvailable = false;
-                texts.doubleJumpPowerupText.gameObject.SetActive(false);
             }
         }
     }
@@ -219,6 +222,8 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Game Over - High Score: " + PlayerPrefs.GetInt("highscore"));
                 PlayerPrefs.SetInt("highscore", texts.score);
                 runningParticle.Stop();
+                Destroy(collision.gameObject);
+                
 
 
 
