@@ -38,11 +38,12 @@ public class PlayerController : MonoBehaviour
     public AudioSource coinCollectAudio;
     public AudioSource powerupCollectAudio;
     public AudioSource jumpAudio;
+    public AudioSource rocketExplosion;
 
     private int doubleJumpCount = 1;
     private int currentDoubleJumps = 0;
     private bool doubleJumpAvailable = false;
-    private float doubleJumpDuration = 5.0f;
+    private float doubleJumpDuration = 20.0f;
     private float doubleJumpTimer = 0.0f;
 
     private bool isCrouching = false;
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
         coinCollectAudio = GetComponent<AudioSource>();
         powerupCollectAudio = GetComponent<AudioSource>();
         jumpAudio = GetComponent<AudioSource>();
+        rocketExplosion = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -223,6 +225,7 @@ public class PlayerController : MonoBehaviour
                 PlayerPrefs.SetInt("highscore", texts.score);
                 runningParticle.Stop();
                 Destroy(collision.gameObject);
+                rocketExplosion.Play();
                 
 
 
