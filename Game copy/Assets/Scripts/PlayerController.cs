@@ -58,13 +58,7 @@ public class PlayerController : MonoBehaviour
         laneWidth = floorWidth / numberOfLanes;
         originalHeight = transform.localScale.y;
 
-        // Assign the audio sources
-        runningAudio = GetComponent<AudioSource>();
-        dyingAudio = GetComponent<AudioSource>();
-        coinCollectAudio = GetComponent<AudioSource>();
-        powerupCollectAudio = GetComponent<AudioSource>();
-        jumpAudio = GetComponent<AudioSource>();
-        rocketExplosion = GetComponent<AudioSource>();
+       
     }
 
     void Update()
@@ -159,8 +153,7 @@ public class PlayerController : MonoBehaviour
 
             if (isCrouching)
             {
-                // Additional actions when continuously crouching
-                // Example: Decrease speed when continuously crouching
+                
                 speed /= 2.0f;
             }
             else
