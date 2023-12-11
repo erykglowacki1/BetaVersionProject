@@ -15,7 +15,9 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem explosionParticle;
     public ParticleSystem runningParticle;
     public ParticleSystem crouchParticle;
-   
+
+    private bool isPowerupActive = false;
+
 
     private bool canPlayRunningParticle = true;
 
@@ -46,6 +48,9 @@ public class PlayerController : MonoBehaviour
     private float doubleJumpDuration = 20.0f;
     private float doubleJumpTimer = 0.0f;
 
+    
+
+
     private bool isCrouching = false;
     private float originalHeight;
 
@@ -58,7 +63,7 @@ public class PlayerController : MonoBehaviour
         laneWidth = floorWidth / numberOfLanes;
         originalHeight = transform.localScale.y;
 
-       
+
     }
 
     void Update()
@@ -100,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                
                 if (isOnGround || (doubleJumpAvailable && doubleJumpTimer > 0))
                 {
                     playerRb.velocity = new Vector3(playerRb.velocity.x, 0, playerRb.velocity.z);
@@ -153,7 +159,7 @@ public class PlayerController : MonoBehaviour
 
             if (isCrouching)
             {
-                
+
                 speed /= 2.0f;
             }
             else
@@ -219,7 +225,7 @@ public class PlayerController : MonoBehaviour
                 runningParticle.Stop();
                 Destroy(collision.gameObject);
                 rocketExplosion.Play();
-                
+
 
 
 
@@ -239,7 +245,10 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("PowerUp"))
         {
+            
             CollectPowerup(collision.gameObject);
+
+            isPowerupActive = true;
 
             // Play powerup collect audio
             powerupCollectAudio.Play();
@@ -271,17 +280,41 @@ public class PlayerController : MonoBehaviour
 
     private void CollectPowerup(GameObject PowerUp)
     {
-        StartCoroutine(ActivateInvincibility());
+        // Check if the invincibility powerup is already active
+        if (isInvincible)
+        {
+            // Optionally, you can display a message or perform some other action
+            // indicating that the powerup is already active.
+            Debug.Log("Invincibility powerup is already active.");
+            return;
+        }
+
+        // Reset the invincibility powerup timer
         powerupTimer = powerupDuration;
+
+        // Stop the existing invincibility powerup coroutine, if active
+        StopCoroutine("ActivateInvincibility");
+
+        // Start a new invincibility powerup
+        StartCoroutine(ActivateInvincibility());
+
+        isInvincible = true; // Set isInvincible to true when the powerup is collected
+
         texts.InvincibilityText(powerupTimer);
+
         Destroy(PowerUp);
     }
+
+
 
     IEnumerator ActivateInvincibility()
     {
         isInvincible = true;
-        yield return new WaitForSeconds(5.0f);
+
+        yield return new WaitForSeconds(powerupDuration);
+
         isInvincible = false;
+        isPowerupActive = false;
     }
 
     private void CollectDoubleJump(GameObject PowerUp)

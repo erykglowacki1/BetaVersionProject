@@ -629,7 +629,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 07f1ca4d96bca46dbbaa5f4483f7a48a, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.604
   m_Pitch: 1
   Loop: 0
@@ -725,7 +725,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 67357478fa899460198f84822b54cc8d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.669
   m_Pitch: 1
   Loop: 0
@@ -821,7 +821,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f928159802e324af2b95417fa6ce3fdf, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.681
   m_Pitch: 1
   Loop: 0
@@ -917,7 +917,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dc028d92bd81f4023ae9b67676dad909, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.634
   m_Pitch: 1
   Loop: 0
@@ -1019,7 +1019,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b9f0c283bed9b4ce29f3ba7ca4c2edc4, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.628
   m_Pitch: 1
   Loop: 0
@@ -1064,7 +1064,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.271
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -2734,6 +2734,8 @@ MonoBehaviour:
   - {fileID: 1444129337962304309, guid: 737e5c6cc91b94ada9ef184915ba6d8e, type: 3}
   - {fileID: 1466845003561117993, guid: 45fe9e41eabd44331938d32b3fa3364c, type: 3}
   - {fileID: 1504282075511442808, guid: 894fb8c46142a44b2ba2731a25096ab2, type: 3}
+  - {fileID: 1444129337962304309, guid: 737e5c6cc91b94ada9ef184915ba6d8e, type: 3}
+  - {fileID: 1444129337962304309, guid: 737e5c6cc91b94ada9ef184915ba6d8e, type: 3}
   cloudPrefab: {fileID: 100000, guid: c2391e8a6bdf5424194b61e41952a40a, type: 3}
 --- !u!1 &2114267472
 GameObject:
