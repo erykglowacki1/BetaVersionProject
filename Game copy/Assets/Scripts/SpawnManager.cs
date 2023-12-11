@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
     private float minSpawnInterval = 0.3f;
     private float decreaseSpawnInterval = 0.2f;
 
-    private float cloudSpawnInterval = 3.0f; // Adjust this value based on your requirements
+    private float cloudSpawnInterval = 1.5f; // Adjust this value based on your requirements
     private float nextCloudSpawnTime = 0.0f;
 
     private float elapsedTime;
@@ -65,7 +65,7 @@ public class SpawnManager : MonoBehaviour
             if (obstaclePrefabs[obstacleIndex].CompareTag("Coin") || obstaclePrefabs[obstacleIndex].CompareTag("PowerUp"))
             {
                 // Spawn coins and power-ups on the ground
-                spawnPosY = 0.0f;
+                spawnPosY = 1.0f;
             }
             else
             {
