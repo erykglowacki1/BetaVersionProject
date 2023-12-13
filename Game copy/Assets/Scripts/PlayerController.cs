@@ -71,23 +71,31 @@ public class PlayerController : MonoBehaviour
         if (!gameOver)
         {
             float horizontalInput = Input.GetAxis("Horizontal");
-
+            // Check if the left arrow key is pressed, the player is not crouching, and there's space to move left.
             if (Input.GetKeyDown(KeyCode.LeftArrow) && currentLane > 0 && !isCrouching)
             {
+                // Move the player one lane to the left.
                 currentLane--;
             }
 
+            // Check if the right arrow key is pressed, the player is not crouching, and there's space to move right.
             if (Input.GetKeyDown(KeyCode.RightArrow) && currentLane < numberOfLanes - 1 && !isCrouching)
             {
+                // Move the player one lane to the right.
                 currentLane++;
             }
 
+            // Calculate the target X position based on the current lane, lane width, and floor width.
             float targetX = currentLane * laneWidth - floorWidth / 2.0f + laneWidth / 2.0f;
+
+            // Smoothly move the player's position towards the target X position using Lerp.
             transform.position = Vector3.Lerp(transform.position, new Vector3(targetX, transform.position.y, transform.position.z), Time.deltaTime * speed);
 
+            // Clamp the X position to ensure the player stays within the playable area.
             float clampedX = Mathf.Clamp(transform.position.x, -floorWidth / 2.0f + laneWidth / 2.0f, floorWidth / 2.0f - laneWidth / 2.0f);
             transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
 
+            // Move the player horizontally based on input, allowing additional movement beyond lane changes.
             transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
 
 
