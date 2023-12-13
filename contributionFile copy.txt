@@ -6,4 +6,6 @@ Eryk Glowacki - Created all of the scenes, added the main menu + functionality, 
 
 BETA CHANGES:
 
+James Foley - I did all the audios and background music, added the crouch animation, made it work and look better. Added a cloud prefab for Level 1 and an asteroid prefab for level 2 so it looked like the player was running, added a pause game menu with 4 different options, using a button down the bottom of the levels or the escape key, and I made the lane change smoother movement wise and doesn't hit the edges of the road.
+
 Eryk Glowacki: Made the entire main menu look nice Ex:Added colour change when hovering over button,,new background image + music to main menu, i also added the highscore feature using the Player Prefs, added the running and jumping animations, added the particles behind the character, added the fire behind the rockets in level 1 and the flames coming from the asteroids on level 2, i also made the object destroy itself when it collides with the player and the explosion effect happens when you die, i also added the dying animation and made everything stop when you die
