@@ -1,3 +1,9 @@
+ALPHA CHANGES:
 James Foley -  My part I contributed in was player movements, such as a basic lane movement and changes, the crouching, and the crouch back down after jumping. I also added random enemy spawn heights so the player can dodge them in different ways.
 
 Eryk Glowacki - Created all of the scenes, added the main menu + functionality, created the spawn manager + prefabs, created basic functional UI, created the powerups + coins, tweaked the lane system added by james to fit into the set ground, added game over functionality, made spawn rate + speed of the obstacles increase globally 
+
+
+BETA CHANGES:
+
+Eryk Glowacki: Made the entire main menu look nice Ex:Added colour change when hovering over button,,new background image + music to main menu, i also added the highscore feature using the Player Prefs, added the running and jumping animations, added the patricles behind the character, added the fire behind the rockets in level 1 and the flames coming from the asteroids on level 2, i also made the object destroy itself when it collides with the player and the explosion effect happens when you die, i also added the dying animation and made everything stop when you die
