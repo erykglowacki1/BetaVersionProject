@@ -1,0 +1,48 @@
+<linker>
+	<assembly fullname="Assembly-CSharp" ignoreIfMissing="1">
+		<type fullname="LinkToGithub">
+			<method name="OpenUrl"/>
+		</type>
+		<type fullname="LoadGame">
+			<method name="PlayGame"/>
+			<method name="PlayGame2"/>
+			<method name="QuitGame"/>
+		</type>
+		<type fullname="PauseManager">
+			<method name="BackToMain"/>
+			<method name="BackToMain"/>
+			<method name="BackToMain"/>
+			<method name="BackToMain"/>
+			<method name="HandleGamePause"/>
+			<method name="HandleGamePause"/>
+			<method name="HandleGameResume"/>
+			<method name="HandleGameResume"/>
+		</type>
+		<type fullname="PlayerController">
+			<method name="RestartGame"/>
+			<method name="RestartGame"/>
+			<method name="ReturnMenu"/>
+			<method name="ReturnMenu"/>
+		</type>
+	</assembly>
+	<assembly fullname="UnityEngine.CoreModule" ignoreIfMissing="1">
+		<type fullname="UnityEngine.GameObject">
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+			<method name="SetActive"/>
+		</type>
+	</assembly>
+</linker>
